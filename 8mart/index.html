@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта!</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        h1 {
+            color: #d63384;
+        }
+        #flower-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .flower {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url('https://avatars.mds.yandex.net/i?id=812e6f45165c2f2df1f59ee24457ae60d75de528-4468364-images-thumbs&n=13');
+            background-size: cover;
+            mix-blend-mode: multiply;
+            cursor: pointer;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-50px); }
+            to { transform: translateY(100vh); }
+        }
+        #counter {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #d63384;
+        }
+        #bouquet {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 2s ease-in-out, visibility 0s linear 0s;
+            width: 200px;
+            position: absolute;
+            left: 50%;
+            top: 40%;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: multiply;
+        }
+        #congrats {
+            opacity: 0;
+            visibility: hidden;
+            font-size: 16px;
+            color: #d63384;
+            margin-top: 55px;
+            position: absolute;
+            left: 50%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            transition: opacity 1s ease-in-out, visibility 0s linear 0s;
+        }
+    </style>
+</head>
+<body>
+<h1>С 8 Марта, дорогие одногруппницы!</h1>
+<p>Соберите 10 цветов, чтобы получить подарок!</p>
+<div id="flower-container"></div>
+<div id="counter">Собрано цветов: 0</div>
+<img id="bouquet" src="https://avatars.mds.yandex.net/i?id=3b78c4158a1326a2c2e5b782ab915365_l-5502412-images-thumbs&n=13">
+<div id="congrats">Поздравляю! Ты собрала букет! Ты самая умная, красивая и талантливая! 💖 <br>
+    Құрметті, ақылды да аяулы арулар.Сіздерді келген 8 Наурыз - Халықаралық әйелдер күнімен құттықтаймыз.
+    Әрқашанда гүлдей жайқалып жүре беріңіздер.<br> Өмірлерініз шексіз бақыт пен шатыққа толы болсын.<br>
+    Осындай мерекеге орай, сіздерді отырысқа шақырамыз:<br>
+    Место проведения: Караоке-бар Famous по адресу улица Шарль де Голль 13.<br>
+    Дата: 17.03.2025г.<br>
+    Время: 18:00<br>
+    Дресс-код: Классика</div>
+
+<script>
+    let flowerCount = 0;
+    let flowerInterval = setInterval(createFlower, 700);
+
+    function createFlower() {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = (Math.random() * 2 + 3) + "s";
+
+        flower.addEventListener("click", () => {
+            flower.remove();
+            flowerCount++;
+            document.getElementById("counter").textContent = "Собрано цветов: " + flowerCount;
+
+            if (flowerCount >= 10) {
+                showResult();
+            }
+        });
+
+        document.getElementById("flower-container").appendChild(flower);
+        setTimeout(() => flower.remove(), 5000);
+    }
+
+    function showResult() {
+        let bouquet = document.getElementById("bouquet");
+        let congrats = document.getElementById("congrats");
+
+        bouquet.style.display = "block";
+        congrats.style.display = "block";
+
+        setTimeout(() => {
+            bouquet.style.opacity = "1";
+            bouquet.style.visibility = "visible";
+            congrats.style.opacity = "1";
+            congrats.style.visibility = "visible";
+        }, 50);
+
+        clearInterval(flowerInterval);
+        document.querySelectorAll(".flower").forEach(flower => flower.remove());
+    }
+</script>
+</body>
+</html>
+
